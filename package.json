@@ -1,0 +1,32 @@
+{
+  "name": "MeanAuth",
+  "version": "1.0.0",
+  "description": "mean-stack_auth",
+  "main": "server.js",
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "cors": "*",
+    "mongoose": "^4.9.10",
+    "morgan": "^1.8.1",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zhirayr-MARKARYAN/MEAN_stack.git"
+  },
+  "author": "Markaryan Zhirayr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zhirayr-MARKARYAN/MEAN_stack/issues"
+  },
+  "homepage": "https://github.com/Zhirayr-MARKARYAN/MEAN_stack#readme"
+}
