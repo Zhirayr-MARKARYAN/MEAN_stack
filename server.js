@@ -4,20 +4,22 @@
 
 //express for MVC
 let express    = require('express');
+let path       = require('path');
 //morgan for request logging,
-let morgan     = require('morgan');
+// let morgan     = require('morgan');
 //body-parser for simulating post request handling in NodeJS
 let bodyParser = require('body-parser');
+let cors       = require('cors');
 //jsonwebtoken for creating JWT tokens by using our User model
 let jwt        = require('jsonwebtoken');
+let passport   = require('passport');
 // mongoose for our ORM framework to connect to MongoDB,
 let mongoose   = require('mongoose');
 
-let passport   = require('passport');
-let cors       = require('cors');
-let path       = require('path');
+// Require morgan before use
+let morgan     = require('morgan'); 
 
-let User       = require('./app/models/user');
+// let User       = require('./app/models/user');
 let config     = require('./app/config/database') 
 let users      = require('./app/routes/users');
 //--------------------------------------------------------------------------------------------------
@@ -38,29 +40,31 @@ mongoose.connect(config.database, function(err) {
 	}
 });
 
+//CORS Middleware
+app.use(cors());
+
+//set static folder
+app.use(express.static(path.join(__dirname, '/app/public')));
+
+//bodyParser.json(): Parses the text as JSON and exposes the resulting object on req.body.
+app.use(bodyParser.json());
+
+app.use('/users', users)
+
 //http://localhost:8000/
 app.get('/users', function (req, res) {
   res.send('Hello World!');
 });
 
-//http://localhost:8000/users
-// app.post('/users', function(req, res){
-// 	// let user = new User();
-// 	// user.username = req.username;
-// 	// user.password = req.password;
-// 	// user.email = req.email;
-// 	// user.save();
-// 	// res.send("user created");
-// })
+//Index Route
+app.get('/', (req, res) => {
+	res.send('Invalid Endpoint');
+});
 
-//set static folder
-app.use(express.static(path.join(__dirname, '/app/public')));
+// app.use(morgan('dev'));
 
-app.use(morgan('dev'))
-//CORS Middleware
-app.use(cors());
 
-app.use('/users', users)
+
 //--------------------------------- app.use(bodyParser.urlencoded({ extended: true })); ----------------------------------
 //bodyParser.urlencoded() - Parses the text as URL encoded data 
 //(which is how browsers tend to send form data from regular forms set to POST) 
@@ -69,18 +73,26 @@ app.use('/users', users)
 //Now, true is the default value for this middleware in express. 
 //So, what's the use of this middleware. Here, when you fire POST request it gets encoded in form of object that only 
 //contains {key:value} pairs only or can contain a simple string in json format only.
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 //------------------------------------------------------------------------------------------------------------------------
 
-//bodyParser.json(): Parses the text as JSON and exposes the resulting object on req.body.
-app.use(bodyParser.json());
+
+
+// http://localhost:8000/users
+// app.post('/users', function(req, res){
+// 	// console.log("req est ", req.body)
+// 	// let user = new User();
+// 	// user.name = req.body.name;
+// 	// user.email = req.body.email;
+// 	// user.username = req.body.username;
+// 	// user.password = req.body.password;
+// 	// user.save();
+// 	// console.log(user)
+
+// 	// res.send("user created");
+// })
 
 app.use(morgan("dev"));
-
-//Index Route
-app.get('/', (req, res) => {
-	res.send('Invalid Endpoint');
-})
 
 // startup our server at http://localhost:8081
 app.listen(port);

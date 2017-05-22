@@ -4,15 +4,15 @@
   "description": "mean-stack_auth",
   "main": "server.js",
   "dependencies": {
-    "bcryptjs": "*",
-    "body-parser": "*",
-    "express": "*",
-    "jsonwebtoken": "*",
-    "cors": "*",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.9.10",
     "morgan": "^1.8.1",
-    "passport": "*",
-    "passport-jwt": "*"
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1"
   },
   "devDependencies": {},
   "scripts": {
